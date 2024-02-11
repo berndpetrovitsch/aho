@@ -1,11 +1,11 @@
 #!/bin/bash
 
-SRC_DIR=${BASH_SOURCE%/*}
+SRC_DIR="${0%/*}"
 INCLUDE_DIR="$SRC_DIR"/include
 GAWK_VERSION=$(gawk --version | gawk --source 'NR==1{print substr($3,0,length($3)-1)}')
 GAWK_VERSION_MAJOR="${GAWK_VERSION%%.*}"
 
-if (( GAWK_VERSION_MAJOR < 5 )); then
+if [ $GAWK_VERSION_MAJOR -lt 5 ]; then
     echo "gawk 5.0.0 or higher required, found $GAWK_VERSION" > /dev/stderr
     exit 1
 fi
@@ -14,7 +14,7 @@ fi
 export LC_ALL=C
 
 export AWKPATH="$INCLUDE_DIR"
-if (( TEST )); then
+if [ -n "$TEST" ]; then
     echo "Testing"
     gawk -d -f "$SRC_DIR"/aho.awk -- "$@"
     echo "awkvars.out"
