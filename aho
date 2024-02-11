@@ -2,7 +2,7 @@
 
 SRC_DIR=${BASH_SOURCE%/*}
 INCLUDE_DIR="$SRC_DIR"/include
-GAWK_VERSION=$(gawk --version | head -n 1 | cut -d ' ' -f 3 | tr -d ',')
+GAWK_VERSION=$(gawk --version | gawk --source 'NR==1{print substr($3,0,length($3)-1)}')
 GAWK_VERSION_MAJOR=$(cut -d '.' -f 1 <<< "$GAWK_VERSION")
 
 if (( GAWK_VERSION_MAJOR < 5 )); then
