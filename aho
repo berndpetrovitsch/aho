@@ -6,7 +6,7 @@ GAWK_VERSION=$(gawk --version | gawk --source 'NR==1{print substr($3,0,length($3
 GAWK_VERSION_MAJOR="${GAWK_VERSION%%.*}"
 
 if [ $GAWK_VERSION_MAJOR -lt 5 ]; then
-    echo "gawk 5.0.0 or higher required, found $GAWK_VERSION" > /dev/stderr
+    echo "gawk 5.0.0 or higher required, found $GAWK_VERSION" >&2
     exit 1
 fi
 
